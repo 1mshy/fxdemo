@@ -3,6 +3,7 @@ package com.imshy.demo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -14,36 +15,30 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class HelloApplication extends Application {
-    private static TabPane tabPane = new TabPane();
-
+    private static Stage stage;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FXMLExampleController.class.getResource("fxml_example.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-
-        stage.setTitle("Hello!");
+    public void start(Stage stage) {
+        HelloApplication.stage = stage;
+        Scene scene = new Scene((Parent) load("fxml_example.fxml"), 960, 600);
+        stage.setTitle("Login Screen");
         stage.setScene(scene);
-        stage.show();
-
-        Tab tab1 = new Tab();
-        tab1.setText("Welcome Screen");
-        tab1.setContent(load("fxml_example.fxml"));
-        tabPane.getTabs().add(tab1);
-        VBox vBox = new VBox(tabPane);
-        scene = new Scene(vBox, 960, 600);
-        stage.setScene(scene);
-        stage.setTitle("JavaFX App");
         stage.show();
     }
 
     public static void accessAllowed() {
-        tabPane.getTabs().remove(0);
+        System.out.println("Access allowed");
         Tab tab2 = new Tab("Hello tab");
         tab2.setContent(load("hello-view.fxml"));
         Tab tab3 = new Tab("Boats", new Label("Show all boats available"));
+        TabPane tabPane = new TabPane();
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
+        VBox vBox = new VBox(tabPane);
+        Scene scene = new Scene(vBox, 960, 600);
+        stage.setScene(scene);
+        stage.setTitle("JavaFX App");
+        stage.show();
     }
 
     public static void launch(String... args) {
@@ -60,7 +55,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        HelloApplication.launch("hello-view.fxml");
-
+        HelloApplication.launch();
     }
 }
