@@ -17,7 +17,11 @@ public class FXMLExampleController {
     protected void handleSubmitButtonAction() {
         System.out.println(userTextField.getText());
         System.out.println(passwordField.getText());
-        actiontarget.setText("Sign in button pressed");
-        HelloApplication.accessAllowed();
+        if(UserManager.getInstance().login(userTextField.getText(), passwordField.getText())) {
+            System.out.println("Login successful");
+            HelloApplication.accessAllowed();
+        } else {
+            actiontarget.setText("Login failed");
+        }
     }
 }
