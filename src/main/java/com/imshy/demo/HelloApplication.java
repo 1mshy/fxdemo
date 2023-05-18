@@ -21,6 +21,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) {
         HelloApplication.stage = stage;
         Scene scene = new Scene((Parent) load("fxml_example.fxml"), 960, 600);
+//        scene.getStylesheets().add(HelloApplication.class.getResource("demo.css").toExternalForm());
         stage.setTitle("Login Screen");
         stage.setScene(scene);
         stage.show();
@@ -30,12 +31,14 @@ public class HelloApplication extends Application {
         System.out.println("Access allowed");
         Tab tab2 = new Tab("Hello tab");
         tab2.setContent(load("hello-view.fxml"));
-        Tab tab3 = new Tab("Boats", new Label("Show all boats available"));
+        Tab tab3 = new Tab("Boats");
+        tab3.setContent(load("css_demo.fxml"));
         TabPane tabPane = new TabPane();
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox, 960, 600);
+        scene.getStylesheets().add(HelloApplication.class.getResource("demo.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("JavaFX App");
         stage.show();
